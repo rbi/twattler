@@ -1,12 +1,14 @@
 package de.saxsys.twattler;
 
 import groovy.util.Eval;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
@@ -18,7 +20,6 @@ import org.opendolphin.core.client.ClientAttribute;
 import org.opendolphin.core.client.ClientPresentationModel;
 import org.opendolphin.core.client.comm.OnFinishedHandlerAdapter;
 
-import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -45,6 +46,8 @@ public class TwattlerController {
     private URL location;
     @FXML
     private ToggleButton emoticonButton;
+	@FXML
+    private ScrollPane scrollPane;
     @FXML
     private VBox messages;
     @FXML
@@ -90,6 +93,8 @@ public class TwattlerController {
                 // TODO visualisieren, dass wir die initialen Daten haben.
                 longPoll();
                 myName.requestFocus();
+                myName.selectAll();
+                scrollToBottom();
             }
         });
 
@@ -112,8 +117,17 @@ public class TwattlerController {
                 }
             }
         });
+        initializeSendMessageEventHandler();
 
-        // CTRL + ENTER
+
+        // send message
+        // send.setOnAction((ActionEvent event) -> sendMessage());
+
+        //emoticonSelectorController.visibleProperty().bind(toggleEmoticons.selectedProperty());
+
+    }
+
+    private void initializeSendMessageEventHandler() {
         myMessage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
             if (KeyCode.ENTER.equals(event.getCode()) && event.isControlDown()) {
                 sendMessage();
@@ -151,8 +165,13 @@ public class TwattlerController {
             messageController.setPresentationModel(presentationModel);
             Parent message = fxmlLoader.getRoot();
             messages.getChildren().add(message);
+            scrollToBottom();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void scrollToBottom() {
+        Platform.runLater(() -> scrollPane.setVvalue(scrollPane.getVmax()));
     }
 }
