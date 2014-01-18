@@ -1,7 +1,6 @@
 package de.saxsys.twattler;
 
 import javafx.application.Application;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,10 +11,9 @@ import javafx.stage.Stage;
 import org.opendolphin.core.ModelStoreEvent;
 import org.opendolphin.core.ModelStoreListener;
 import org.opendolphin.core.PresentationModel;
-import org.opendolphin.core.client.ClientAttribute;
 import org.opendolphin.core.client.ClientDolphin;
 
-import static de.saxsys.twattler.ChatterConstants.*;
+import static de.saxsys.twattler.ChatterConstants.TYPE_POST;
 
 public class ChatApplication extends Application {
 
@@ -68,12 +66,6 @@ public class ChatApplication extends Application {
 
 
 
-    }
-
-    private void addClientSideAction() {
-        newButton.setOnAction((ActionEvent event) -> {
-            clientDolphin.send(CMD_POST);
-        });
     }
 
 }

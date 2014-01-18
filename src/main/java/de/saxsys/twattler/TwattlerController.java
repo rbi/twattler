@@ -1,6 +1,7 @@
 package de.saxsys.twattler;
 
 import groovy.util.Eval;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import org.opendolphin.binding.Converter;
@@ -43,8 +44,6 @@ public class TwattlerController {
         release();
         return value;
     };
-
-
 
         @FXML
         private ResourceBundle resources;
@@ -104,6 +103,11 @@ public class TwattlerController {
 
             bind("text").of(newMessage).to(ATTR_MESSAGE).of(postModel, withRelease);
             bind(ATTR_MESSAGE).of(postModel).to("text").of(newMessage);
+
+            send.setOnAction((ActionEvent event) -> {
+                ChatApplication.clientDolphin.send(CMD_POST);
+                release();
+            });
+
         }
     }
-
