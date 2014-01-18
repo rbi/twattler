@@ -22,9 +22,9 @@ public class EmoticonPicker {
   public static final String EMOTION_MAD = "😠";
   public static final String EMOTION_SAD = "😟";
   public static final String EMOTION_SMILE = "😃";
-  // public static final String EMOTION_SURPRISE = "😱";
+  public static final String EMOTION_SURPRISE = "😱";
 
-  private static final int TEXT_LENGTH_PLUS_ONE = 4;
+  private static final int ONE_PLUS_ONE = 2;
 
   public static Map<String, String> emoticonMap = new HashMap<>();
 
@@ -35,7 +35,7 @@ public class EmoticonPicker {
     emoticonMap.put(EMOTION_SAD, "icon_mad.gif");
     emoticonMap.put(EMOTION_MAD, "icon_sad.gif");
     emoticonMap.put(EMOTION_SMILE, "icon_smile.gif");
-    // emoticonMap.put(EMOTION_SURPRISE, "icon_surprised.gif");
+    emoticonMap.put(EMOTION_SURPRISE, "icon_surprised.gif");
   }
 
   public String findEmoticonPath(String str) {
@@ -66,7 +66,7 @@ public class EmoticonPicker {
     return result;
   }
 
-  // TODO Gehört hier nicht hin!!!
+  // TODO Gehört hier nicht wirklich hin!!!
   public void checkText(TextFlow tf, String text) {
 
     Collection<Node> newChildren = new ArrayList<>();
@@ -80,10 +80,10 @@ public class EmoticonPicker {
       if (emoticonTextStart != NO_EMOTICON_FOUND) {
 
         newChildren.add(new Text(text.substring(beginIndex, emoticonTextStart)));
-        String emoticon = text.substring(emoticonTextStart, emoticonTextStart + TEXT_LENGTH_PLUS_ONE);
+        String emoticon = text.substring(emoticonTextStart, emoticonTextStart + ONE_PLUS_ONE);
         newChildren.add(new ImageView("file:///" + findEmoticonPath(emoticon)));
         try {
-          text = text.substring(emoticonTextStart + TEXT_LENGTH_PLUS_ONE);
+          text = text.substring(emoticonTextStart + ONE_PLUS_ONE);
         } catch (IndexOutOfBoundsException e) {
           // Naja Emoticon war wohl das letzte im Text
           emoticonTextStart = NO_EMOTICON_FOUND;
