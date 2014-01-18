@@ -104,9 +104,11 @@ public class TwattlerController {
             bind("text").of(newMessage).to(ATTR_MESSAGE).of(postModel, withRelease);
             bind(ATTR_MESSAGE).of(postModel).to("text").of(newMessage);
 
+            // send message
             send.setOnAction((ActionEvent event) -> {
                 ChatApplication.clientDolphin.send(CMD_POST);
                 release();
+                newMessage.requestFocus();
             });
 
         }
