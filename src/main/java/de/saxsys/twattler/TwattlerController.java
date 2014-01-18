@@ -114,19 +114,22 @@ public class TwattlerController {
                 }
             }
         });
+        initializeSendMessageEventHandler();
 
-        // CTRL + ENTER
-        myMessage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
-            if (KeyCode.ENTER.equals(event.getCode()) && event.isControlDown()) {
-                sendMessage();
-            }
-        });
 
         // send message
         // send.setOnAction((ActionEvent event) -> sendMessage());
 
         //emoticonSelectorController.visibleProperty().bind(toggleEmoticons.selectedProperty());
 
+    }
+
+    private void initializeSendMessageEventHandler() {
+        myMessage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+            if (KeyCode.ENTER.equals(event.getCode()) && event.isControlDown()) {
+                sendMessage();
+            }
+        });
     }
 
     private void sendMessage() {
