@@ -4,6 +4,8 @@ import groovy.util.Eval;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import org.opendolphin.binding.Converter;
 import org.opendolphin.core.client.ClientAttribute;
 import org.opendolphin.core.client.ClientPresentationModel;
@@ -104,12 +106,23 @@ public class TwattlerController {
             bind("text").of(newMessage).to(ATTR_MESSAGE).of(postModel, withRelease);
             bind(ATTR_MESSAGE).of(postModel).to("text").of(newMessage);
 
-            // send message
-            send.setOnAction((ActionEvent event) -> {
-                ChatApplication.clientDolphin.send(CMD_POST);
-                release();
-                newMessage.requestFocus();
+            // CTRL + ENTER
+            newMessage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+                if (KeyCode.ENTER.equals(event.getCode()) && event.isControlDown()) {
+                    sendMessage();
+                }
             });
 
+            // send message
+            send.setOnAction((ActionEvent event) -> sendMessage());
+
         }
+
+    private void sendMessage() {
+        if (newMessage.getText().isEmpty()) return;
+
+        ChatApplication.clientDolphin.send(CMD_POST);
+        release();
+        newMessage.requestFocus();
     }
+}
