@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+.emoticonButton {
+	-fx-background-color: transparent;
+}
+
+.emoticonButton:hover{
+	-fx-background-color: derive( -fx-base, -20%);
+}
+
+.emoticonButton:armed {
+	-fx-background-color: derive( -fx-base, -30%);
+}
+
+.biggrin {
+	-fx-graphic: url("emoticons/icon_biggrin.gif");
+}
+
+.confused {
+	-fx-graphic: url("emoticons/icon_confused.gif");
+}
+
+.eek {
+	-fx-graphic: url("emoticons/icon_eek.gif");
+}
+
+.mad {
+	-fx-graphic: url("emoticons/icon_mad.gif");
+}
+
+.sad {
+	-fx-graphic: url("emoticons/icon_sad.gif");
+}
+
+.smile {
+	-fx-graphic: url("emoticons/icon_smile.gif");
+}
+
+.surprised {
+	-fx-graphic: url("emoticons/icon_surprised.gif");
+}
