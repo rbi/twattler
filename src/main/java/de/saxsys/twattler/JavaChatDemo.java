@@ -17,6 +17,7 @@
 package de.saxsys.twattler;
 
 import javafx.application.Application;
+
 import org.opendolphin.core.client.ClientDolphin;
 import org.opendolphin.core.client.ClientModelStore;
 import org.opendolphin.core.client.comm.BlindCommandBatcher;
@@ -26,21 +27,20 @@ import org.opendolphin.core.comm.JsonCodec;
 
 public class JavaChatDemo {
 
-    public static void main(String[] args) throws Exception {
-        ClientDolphin clientDolphin = new ClientDolphin();
-        clientDolphin.setClientModelStore(new ClientModelStore(clientDolphin));
-        BlindCommandBatcher batcher = new BlindCommandBatcher();
-        batcher.setMergeValueChanges(true);
-        HttpClientConnector connector = new HttpClientConnector(clientDolphin, batcher, "https://klondike.canoo.com/dolphin-grails/dolphin/");
-        connector.setCodec(new JsonCodec());
-        connector.setUiThreadHandler(new JavaFXUiThreadHandler());
-        clientDolphin.setClientConnector(connector);
+  public static void main(String[] args) throws Exception {
 
-        ChatApplication.clientDolphin = clientDolphin;
-        Application.launch(ChatApplication.class);
-    }
+    ClientDolphin clientDolphin = new ClientDolphin();
+    clientDolphin.setClientModelStore(new ClientModelStore(clientDolphin));
+    BlindCommandBatcher batcher = new BlindCommandBatcher();
+    batcher.setMergeValueChanges(true);
+    HttpClientConnector connector = new HttpClientConnector(clientDolphin, batcher,
+        "https://klondike.canoo.com/dolphin-grails/dolphin/");
+    connector.setCodec(new JsonCodec());
+    connector.setUiThreadHandler(new JavaFXUiThreadHandler());
+    clientDolphin.setClientConnector(connector);
 
+    ChatApplication.clientDolphin = clientDolphin;
+    Application.launch(ChatApplication.class);
+  }
 
 }
-
-

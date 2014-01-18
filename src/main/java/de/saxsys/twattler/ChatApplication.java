@@ -1,72 +1,84 @@
 package de.saxsys.twattler;
 
+import static de.saxsys.twattler.ChatterConstants.TYPE_POST;
 import javafx.application.Application;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+
 import org.opendolphin.core.ModelStoreEvent;
 import org.opendolphin.core.ModelStoreListener;
 import org.opendolphin.core.PresentationModel;
 import org.opendolphin.core.client.ClientDolphin;
 
-import static de.saxsys.twattler.ChatterConstants.TYPE_POST;
-
 public class ChatApplication extends Application {
 
+  static ClientDolphin clientDolphin;
 
-    static ClientDolphin clientDolphin;
+  private final ListProperty<Message> messages = new SimpleListProperty<>(FXCollections.<Message> observableArrayList());
 
-    private TextField nameField;
-    private TextArea  postField;
-    private Button    newButton;
+  public ChatApplication() {
 
-    private PresentationModel postModel;
+  }
 
+  @Override
+  public void start(Stage stage) throws Exception {
 
-    public ChatApplication() {
+    FXMLLoader fxloader = new FXMLLoader();
+    Parent root = fxloader.load(ChatApplication.class.getResource("/twaddlerMain.fxml").openStream());
+    TwattlerController controller = fxloader.<TwattlerController> getController();
+    controller.setTableModel(messages);
+    Scene scene = new Scene(root);
+    stage.setScene(scene);
+    stage.setTitle(getClass().getName());
+    // scene.getStylesheets().add("/path/to/css");
+    setupBinding();
 
-    }
+    stage.show();
+  }
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(ChatApplication.class.getResource("/twaddlerMain.fxml"));
+  private void setupBinding() {
 
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.setTitle(getClass().getName());
-//        scene.getStylesheets().add("/path/to/css");
+    clientDolphin.addModelStoreListener(TYPE_POST, new ModelStoreListener() {
+      @Override
+      public void modelStoreChanged(ModelStoreEvent event) {
+        if (event.getType() == ModelStoreEvent.Type.ADDED) {
+          System.out.println(" wir haben den pm bekommen:  " + event.getPresentationModel().getId());
+          onPostAdded(event.getPresentationModel());
+        }
+        if (event.getType() == ModelStoreEvent.Type.REMOVED) {
+          System.out.println(" wir haben den pm geloescht:  " + event.getPresentationModel().getId());
+          onPostRemoved(event.getPresentationModel());
+        }
+      }
 
-        stage.show();
+      private void onPostRemoved(PresentationModel presentationModel) {
 
+        
+      }
 
-    }
+      private void onPostAdded(PresentationModel presentationModel) {
 
-    private void setupBinding() {
+        String name = (String) presentationModel.getAt(ChatterConstants.ATTR_NAME).getValue();
+        String text = (String) presentationModel.getAt(ChatterConstants.ATTR_MESSAGE).getValue();
+        String datum = (String) presentationModel.getAt(ChatterConstants.ATTR_DATE).getValue();
 
-        clientDolphin.addModelStoreListener(TYPE_POST, new ModelStoreListener() {
-            @Override
-            public void modelStoreChanged(ModelStoreEvent event) {
-                if (event.getType() == ModelStoreEvent.Type.ADDED) {
-                    System.out.println(" wir haben den pm bekommen:  " + event.getPresentationModel().getId());
-                }
-                if (event.getType() == ModelStoreEvent.Type.REMOVED) {
-                    System.out.println(" wir haben den pm geloescht:  " + event.getPresentationModel().getId());
-                }
-            }
-        });
+        Message newMessage = new Message();
+        newMessage.nameProperty().set(name);
+        newMessage.textProperty().set(text);
+        newMessage.datumProperty().set(datum);
 
-        // on select : pm per id:
-        // pm = clientDolphin.getAt("meineid")
-        // clientDolphin.apply(pm).to(postModel);
-        // release();
+        messages.add(newMessage);
+      }
+    });
 
-
-
-    }
-
+    // on select : pm per id:
+    // pm = clientDolphin.getAt("meineid")
+    // clientDolphin.apply(pm).to(postModel);
+    // release();
+  }
 }
-
