@@ -89,6 +89,7 @@ public class TwattlerController {
                 // TODO visualisieren, dass wir die initialen Daten haben.
                 longPoll();
                 myName.requestFocus();
+                myName.selectAll();
             }
         });
 
