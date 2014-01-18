@@ -14,6 +14,8 @@ import org.opendolphin.core.client.comm.OnFinishedHandlerAdapter;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static de.saxsys.twattler.ChatterConstants.*;
 import static org.opendolphin.binding.JFXBinder.bind;
@@ -92,11 +94,10 @@ public class TwattlerController {
             ChatApplication.clientDolphin.send(CMD_INIT, new OnFinishedHandlerAdapter() {
                 @Override
                 public void onFinished(List<ClientPresentationModel> presentationModels) {
-                    System.out.println("" + presentationModels.size() + "bekommen");
-                    // visualisieren, dass wir die initialen Daten haben.
-
+                    Logger.getLogger(TwattlerController.class.getName()).log(Level.INFO, presentationModels.size() + " Messages bekommen");
+                    // TODO visualisieren, dass wir die initialen Daten haben.
                     longPoll();
-
+                    name.requestFocus();
                 }
             });
 
@@ -115,6 +116,7 @@ public class TwattlerController {
 
             // send message
             send.setOnAction((ActionEvent event) -> sendMessage());
+
 
         }
 
