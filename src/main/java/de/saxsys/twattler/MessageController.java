@@ -49,8 +49,7 @@ public class MessageController {
         StringProperty messageProperty = new SimpleStringProperty();
         messageProperty.addListener((obs, oldVal, newVal) ->{
             textFlow.getChildren().clear();
-            //new EmoticonPicker().checkText(textFlow, newVal);
-            textFlow.getChildren().add(new Text(newVal));
+            new EmoticonPicker().checkText(textFlow, newVal);
         });
 
         bind(ATTR_NAME).of(presentationModel).to("text").of(messageName);

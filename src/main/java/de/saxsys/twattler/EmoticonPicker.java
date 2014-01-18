@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javafx.scene.Node;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
@@ -47,18 +48,18 @@ public class EmoticonPicker {
 
   public int findEmoticonTextStart(String text) {
 
-    int result = NO_EMOTICON_FOUND;
+    int result = Integer.MAX_VALUE;
 
     for (String key : emoticonMap.keySet()) {
 
       if (text.contains(key)) {
         int temp = text.indexOf(key);
-        if (temp > 0 && temp < result) {
+        if (temp >= 0 && temp < result) {
           result = temp;
         }
       }
     }
-    return result;
+    return result == Integer.MAX_VALUE ? NO_EMOTICON_FOUND : result;
   }
 
   // TODO Gehört hier nicht wirklich hin!!!
@@ -76,7 +77,7 @@ public class EmoticonPicker {
 
         newChildren.add(new Text(text.substring(beginIndex, emoticonTextStart)));
         String emoticon = text.substring(emoticonTextStart, emoticonTextStart + ONE_PLUS_ONE);
-        newChildren.add(new ImageView("file:///" + findEmoticonPath(emoticon)));
+        newChildren.add(new ImageView(new Image("/emoticons/" + findEmoticonPath(emoticon))));
         try {
           text = text.substring(emoticonTextStart + ONE_PLUS_ONE);
         } catch (IndexOutOfBoundsException e) {
@@ -89,6 +90,8 @@ public class EmoticonPicker {
 
       if (emoticonTextStart != NO_EMOTICON_FOUND) {
     newChildren.add(new Text(text.substring(emoticonTextStart)));
+      } else {
+          newChildren.add(new Text(text));
       }
 
     tf.getChildren().addAll(newChildren);
