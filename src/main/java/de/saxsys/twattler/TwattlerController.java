@@ -1,6 +1,7 @@
 package de.saxsys.twattler;
 
 import groovy.util.Eval;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -92,6 +93,7 @@ public class TwattlerController {
                 longPoll();
                 myName.requestFocus();
                 myName.selectAll();
+                scrollToBottom();
             }
         });
 
@@ -156,8 +158,13 @@ public class TwattlerController {
             messageController.setPresentationModel(presentationModel);
             Parent message = fxmlLoader.getRoot();
             messages.getChildren().add(message);
+            scrollToBottom();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void scrollToBottom() {
+        Platform.runLater(() -> scrollPane.setVvalue(scrollPane.getVmax()));
     }
 }
