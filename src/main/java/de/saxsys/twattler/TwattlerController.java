@@ -113,6 +113,8 @@ public class TwattlerController {
     ClientAttribute dateAttribute = new ClientAttribute(ATTR_DATE, "");
     ClientPresentationModel postModel = ChatApplication.clientDolphin.presentationModel(PM_ID_INPUT, nameAttribute,
         postAttribute, dateAttribute);
+    
+    emoticonSelectorController.setEmoticonPressedListener((emoticon)-> newMessage.appendText(emoticon));
 
     ChatApplication.clientDolphin.send(CMD_INIT, new OnFinishedHandlerAdapter() {
       @Override
@@ -142,7 +144,7 @@ public class TwattlerController {
     send.setOnAction((ActionEvent event) -> sendMessage());
 
     initColumnRenderer();
-    emoticonSelectorController.visibleProperty().bind(toggleEmoticons.selectedProperty()); 
+    emoticonSelectorController.visibleProperty().bind(toggleEmoticons.selectedProperty());
   }
 
   private void initColumnRenderer() {
