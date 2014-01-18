@@ -8,17 +8,16 @@ import javafx.stage.Stage;
 
 public class MainView extends Application {
 
-	@Override
-	public void start(Stage stage) throws Exception {
-		SplitPane page = (SplitPane) FXMLLoader.load(MainView.class
-				.getResource("/twaddlerMain.fxml"));
-		Scene scene = new Scene(page);
-		stage.setScene(scene);
-		stage.setTitle("Twaddler");
-		stage.show();
-	}
+  @Override
+  public void start(Stage stage) throws Exception {
+    SplitPane page = (SplitPane) FXMLLoader.load(MainView.class.getResource("/twaddlerMain.fxml"));
+    Scene scene = new Scene(page);
+    stage.setScene(scene);
+    stage.setTitle("Twaddler");
+    stage.show();
+  }
 
-	public static void main(final String args[]) {
-		launch(args);
-	}
+  public static void main(final String args[]) {
+    launch(args);
+  }
 }
