@@ -19,8 +19,6 @@ public class ChatApplication extends Application {
 
   static ClientDolphin clientDolphin;
 
-  private final ListProperty<Message> messages = new SimpleListProperty<>(FXCollections.<Message> observableArrayList());
-
   public ChatApplication() {
 
   }
@@ -32,7 +30,6 @@ public class ChatApplication extends Application {
     fxloader.setLocation(ChatApplication.class.getResource("/twaddlerMain.fxml"));
     Parent root = fxloader.load();
     TwattlerController controller = fxloader.<TwattlerController> getController();
-    controller.setTableModel(messages);
     Scene scene = new Scene(root);
     stage.setScene(scene);
     stage.setTitle(getClass().getName());
@@ -43,39 +40,6 @@ public class ChatApplication extends Application {
   }
 
   private void setupBinding() {
-
-    clientDolphin.addModelStoreListener(TYPE_POST, new ModelStoreListener() {
-      @Override
-      public void modelStoreChanged(ModelStoreEvent event) {
-        if (event.getType() == ModelStoreEvent.Type.ADDED) {
-          System.out.println(" wir haben den pm bekommen:  " + event.getPresentationModel().getId());
-          onPostAdded(event.getPresentationModel());
-        }
-        if (event.getType() == ModelStoreEvent.Type.REMOVED) {
-          System.out.println(" wir haben den pm geloescht:  " + event.getPresentationModel().getId());
-          onPostRemoved(event.getPresentationModel());
-        }
-      }
-
-      private void onPostRemoved(PresentationModel presentationModel) {
-
-        
-      }
-
-      private void onPostAdded(PresentationModel presentationModel) {
-
-        String name = (String) presentationModel.getAt(ChatterConstants.ATTR_NAME).getValue();
-        String text = (String) presentationModel.getAt(ChatterConstants.ATTR_MESSAGE).getValue();
-        String datum = (String) presentationModel.getAt(ChatterConstants.ATTR_DATE).getValue();
-
-        Message newMessage = new Message();
-        newMessage.nameProperty().set(name);
-        newMessage.textProperty().set(text);
-        newMessage.datumProperty().set(datum);
-
-        messages.add(newMessage);
-      }
-    });
 
     // on select : pm per id:
     // pm = clientDolphin.getAt("meineid")
