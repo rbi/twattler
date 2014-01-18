@@ -12,10 +12,7 @@ import javafx.scene.text.TextFlow;
 
 public class EmoticonPicker {
 
-  private static final int NO_EMOTICON_FOUND = -1;
-
   public static final String PATH_TO_EMOTICONS = "../../../resources/emoticons/";
-
   public static final String EMOTION_BIGGRIN = "😀";
   public static final String EMOTION_CONFUSED = "😕";
   public static final String EMOTION_EEK = "😮";
@@ -23,11 +20,9 @@ public class EmoticonPicker {
   public static final String EMOTION_SAD = "😟";
   public static final String EMOTION_SMILE = "😃";
   public static final String EMOTION_SURPRISE = "😱";
-
+  private static final int NO_EMOTICON_FOUND = -1;
   private static final int ONE_PLUS_ONE = 2;
-
   public static Map<String, String> emoticonMap = new HashMap<>();
-
   static {
     emoticonMap.put(EMOTION_BIGGRIN, "icon_biggrin.gif");
     emoticonMap.put(EMOTION_CONFUSED, "icon_confused.gif");
@@ -92,7 +87,9 @@ public class EmoticonPicker {
 
     } while (emoticonTextStart != NO_EMOTICON_FOUND);
 
+      if (emoticonTextStart != NO_EMOTICON_FOUND) {
     newChildren.add(new Text(text.substring(emoticonTextStart)));
+      }
 
     tf.getChildren().addAll(newChildren);
   }

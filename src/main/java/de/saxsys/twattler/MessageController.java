@@ -1,15 +1,18 @@
 package de.saxsys.twattler;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextFlow;
 import org.opendolphin.core.PresentationModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import static de.saxsys.twattler.ChatterConstants.ATTR_DATE;
-import static de.saxsys.twattler.ChatterConstants.ATTR_MESSAGE;
-import static de.saxsys.twattler.ChatterConstants.ATTR_NAME;
+import static de.saxsys.twattler.ChatterConstants.*;
 import static org.opendolphin.binding.JFXBinder.bind;
 
 /**
@@ -24,7 +27,7 @@ public class MessageController {
     @FXML
     private Label messageName;
     @FXML
-    private Label messageText;
+    private Pane messageText;
     @FXML
     private Label messageDate;
     private PresentationModel presentationModel;
@@ -40,8 +43,19 @@ public class MessageController {
     public void setPresentationModel(PresentationModel presentationModel) {
         this.presentationModel = presentationModel;
 
+        TextFlow textFlow = new TextFlow();
+        messageText.getChildren().add(textFlow);
+
+        StringProperty messageProperty = new SimpleStringProperty();
+        messageProperty.addListener((obs, oldVal, newVal) ->{
+            textFlow.getChildren().clear();
+            new EmoticonPicker().checkText(textFlow, newVal);
+            //textFlow.getChildren().add(new Text(newVal));
+        });
+
         bind(ATTR_NAME).of(presentationModel).to("text").of(messageName);
-        bind(ATTR_MESSAGE).of(presentationModel).to("text").of(messageText);
+        bind(ATTR_MESSAGE).of(presentationModel).to("value").of(messageProperty);
         bind(ATTR_DATE).of(presentationModel).to("text").of(messageDate);
+
     }
 }

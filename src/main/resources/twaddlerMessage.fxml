@@ -5,5 +5,6 @@
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER_LEFT" prefHeight="61.0" prefWidth="603.0" spacing="3.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.saxsys.twattler.MessageController">
-<children><Label fx:id="messageName" text="Name" /><Label fx:id="messageText" text="Message" /><Label fx:id="messageDate" text="Datum" />
+<children><Label fx:id="messageName" text="Name" />
+<Pane fx:id="messageText" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" /><Label fx:id="messageDate" text="Datum" />
 </children></VBox>

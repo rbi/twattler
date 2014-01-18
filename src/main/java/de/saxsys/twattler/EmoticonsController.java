@@ -32,9 +32,6 @@ public class EmoticonsController {
 
 	@FXML
 	public void initialize() {
-		
-		
-		
 		biggrin.setOnAction((e) -> informListener(EmoticonPicker.EMOTION_BIGGRIN));
 		smile.setOnAction((e) -> informListener(EmoticonPicker.EMOTION_SMILE));
 		confused.setOnAction((e) -> informListener(EmoticonPicker.EMOTION_CONFUSED));

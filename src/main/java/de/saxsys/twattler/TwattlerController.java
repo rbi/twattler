@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
@@ -43,6 +44,8 @@ public class TwattlerController {
     @FXML
     private URL location;
     @FXML
+    private ToggleButton emoticonButton;
+    @FXML
     private VBox messages;
     @FXML
     private TextField myName;
@@ -78,8 +81,6 @@ public class TwattlerController {
         ClientAttribute dateAttribute = new ClientAttribute(ATTR_DATE, "");
         ClientPresentationModel postModel = ChatApplication.clientDolphin.presentationModel(PM_ID_INPUT, nameAttribute,
                 postAttribute, dateAttribute);
-
-        // emoticonSelectorController.setEmoticonPressedListener((emoticon) -> newMessage.appendText(emoticon));
 
         ChatApplication.clientDolphin.send(CMD_INIT, new OnFinishedHandlerAdapter() {
             @Override
@@ -122,7 +123,8 @@ public class TwattlerController {
         // send message
         // send.setOnAction((ActionEvent event) -> sendMessage());
 
-        //emoticonSelectorController.visibleProperty().bind(toggleEmoticons.selectedProperty());
+        emoticonSelectorController.setEmoticonPressedListener((emoticon) -> myMessage.appendText(emoticon));
+        emoticonSelectorController.visibleProperty().bind(emoticonButton.selectedProperty());
     }
 
     private void sendMessage() {

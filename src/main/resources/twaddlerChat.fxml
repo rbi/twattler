@@ -10,6 +10,6 @@
 <content><VBox fx:id="messages" prefHeight="595.0" prefWidth="600.0" spacing="20.0" />
 </content>
 </ScrollPane><VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-<children><TextField fx:id="myName" prefHeight="200.0" prefWidth="600.0" /><TextArea fx:id="myMessage" prefHeight="200.0" prefWidth="200.0" />
+<children><TextField fx:id="myName" prefHeight="200.0" prefWidth="600.0" /><TextArea fx:id="myMessage" prefHeight="200.0" prefWidth="200.0" /><ToggleButton fx:id="emoticonButton" mnemonicParsing="false" text="Emoticon" />
 </children></VBox>
 </children></VBox>
