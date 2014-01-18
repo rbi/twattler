@@ -1,18 +1,10 @@
 package de.saxsys.twattler;
 
-import static de.saxsys.twattler.ChatterConstants.TYPE_POST;
 import javafx.application.Application;
-import javafx.beans.property.ListProperty;
-import javafx.beans.property.SimpleListProperty;
-import javafx.collections.FXCollections;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import org.opendolphin.core.ModelStoreEvent;
-import org.opendolphin.core.ModelStoreListener;
-import org.opendolphin.core.PresentationModel;
 import org.opendolphin.core.client.ClientDolphin;
 
 public class ChatApplication extends Application {

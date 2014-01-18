@@ -35,6 +35,8 @@ import static org.opendolphin.binding.JFXBinder.bind;
  */
 public class TwattlerController {
 
+    private ClientPresentationModel postModel;
+
     private final Converter withRelease = value -> {
         release();
         return value;
@@ -78,11 +80,10 @@ public class TwattlerController {
 
     @FXML
     public void initialize() {
-
         ClientAttribute nameAttribute = new ClientAttribute(ATTR_NAME, "");
         ClientAttribute postAttribute = new ClientAttribute(ATTR_MESSAGE, "");
         ClientAttribute dateAttribute = new ClientAttribute(ATTR_DATE, "");
-        ClientPresentationModel postModel = ChatApplication.clientDolphin.presentationModel(PM_ID_INPUT, nameAttribute,
+        postModel = ChatApplication.clientDolphin.presentationModel(PM_ID_INPUT, nameAttribute,
                 postAttribute, dateAttribute);
 
         ChatApplication.clientDolphin.send(CMD_INIT, new OnFinishedHandlerAdapter() {
@@ -155,14 +156,17 @@ public class TwattlerController {
 
     }
 
-    private void onPostAdded(PresentationModel presentationModel) {
+    private void onPostAdded(final PresentationModel presentationModel) {
 
         FXMLLoader fxmlLoader = new FXMLLoader();
         fxmlLoader.setLocation(TwattlerController.class.getResource("/twaddlerMessage.fxml"));
         try {
             fxmlLoader.load();
             MessageController messageController = fxmlLoader.getController();
-            messageController.setPresentationModel(presentationModel);
+            messageController.setPresentationModel(presentationModel, () -> {
+                ChatApplication.clientDolphin.apply((ClientPresentationModel) presentationModel).to(postModel);
+                release();
+            });
             Parent message = fxmlLoader.getRoot();
             messages.getChildren().add(message);
             scrollToBottom();
