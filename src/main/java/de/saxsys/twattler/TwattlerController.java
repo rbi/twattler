@@ -24,6 +24,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -92,6 +93,12 @@ public class TwattlerController {
   private TableColumn<Message, String> tableMessage;
 
   @FXML
+  private ToggleButton toggleEmoticons;
+  
+  @FXML
+  private EmoticonsController emoticonSelectorController;
+
+  @FXML
   public void initialize() {
     assert tableMessage != null : "fx:id=\"tableMessage\" was not injected: check your FXML file 'twaddlerMain.fxml'.";
     assert name != null : "fx:id=\"name\" was not injected: check your FXML file 'twaddlerMain.fxml'.";
@@ -133,7 +140,9 @@ public class TwattlerController {
 
     // send message
     send.setOnAction((ActionEvent event) -> sendMessage());
+
     initColumnRenderer();
+    emoticonSelectorController.visibleProperty().bind(toggleEmoticons.selectedProperty()); 
   }
 
   private void initColumnRenderer() {

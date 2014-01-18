@@ -29,7 +29,8 @@ public class ChatApplication extends Application {
   public void start(Stage stage) throws Exception {
 
     FXMLLoader fxloader = new FXMLLoader();
-    Parent root = fxloader.load(ChatApplication.class.getResource("/twaddlerMain.fxml").openStream());
+    fxloader.setLocation(ChatApplication.class.getResource("/twaddlerMain.fxml"));
+    Parent root = fxloader.load();
     TwattlerController controller = fxloader.<TwattlerController> getController();
     controller.setTableModel(messages);
     Scene scene = new Scene(root);
