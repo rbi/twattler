@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="698.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.saxsys.twattler.TwattlerController">
+<VBox prefHeight="662.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.saxsys.twattler.TwattlerController">
 <children>
 <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefViewportHeight="547.0" prefViewportWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-<content><VBox fx:id="messages" prefHeight="595.0" prefWidth="600.0" spacing="20.0" />
+<content><VBox fx:id="messages" prefHeight="622.0" prefWidth="600.0" />
 </content>
-</ScrollPane><VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0">
-<children><TextField fx:id="myName" prefHeight="200.0" prefWidth="600.0" /><TextArea fx:id="myMessage" prefHeight="200.0" prefWidth="200.0" /><ToggleButton fx:id="emoticonButton" mnemonicParsing="false" text="Emoticon" />
+</ScrollPane><VBox maxHeight="161.0" prefHeight="114.0" prefWidth="600.0" spacing="5.0">
+<children><TextField fx:id="myName" prefHeight="25.0" prefWidth="600.0" style="-fx-background-radius: 5px;">
+<VBox.margin>
+<Insets left="5.0" right="5.0" top="10.0" />
+</VBox.margin></TextField><HBox maxHeight="100.0" prefHeight="66.0" prefWidth="600.0">
+<children><TextArea fx:id="myMessage" maxHeight="100.0" prefHeight="33.0" prefWidth="425.0" style="-fx-background-radius: 5px;">
+<HBox.margin>
+<Insets left="5.0" right="5.0" />
+</HBox.margin></TextArea><ToggleButton fx:id="emoticonButton" alignment="BOTTOM_CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Emoticon" />
 <fx:include fx:id="emoticonSelector" source="emoticonSelector.fxml" />
+</children></HBox>
+
 </children></VBox>
 </children></VBox>
